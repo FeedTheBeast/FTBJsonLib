@@ -1,0 +1,100 @@
+buildscript {
+    repositories {
+        maven {
+            name = 'ForgeFS'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+		maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+configurations {
+    deployerJars
+}
+
+repositories {
+	mavenCentral()
+    maven {
+        name = 'FTB'
+        url = 'http://ftb.cursecdn.com/FTB2/maven'
+    }
+}
+
+dependencies {
+	compile 'com.google.code.gson:gson:2.3.1'//JSON support
+    compile 'commons-io:commons-io:2.4'//general utility classes
+    compile 'com.google.guava:guava:18.0'//general utility classes
+
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+}
+
+project.ext {
+    currentYear = '2015'
+}
+if (System.getenv().BUILD_NUMBER != null) {
+    ext.buildNum = System.getenv().BUILD_NUMBER
+} else {
+    ext.buildNum = "9999999"
+}
+
+group = 'net.ftb.jsonlib'
+version = "0.0.1-${project.buildNum}"
+description = "FTB Json Library"
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+shadowJar  {
+  exclude 'META-INF/*.DSA'
+  exclude 'META-INF/*.RSA'
+  classifier = 'all'
+}
+build.dependsOn(shadowJar)
+
+
+jar {
+    manifest {
+        attributes 'Launcher-Jenkins': project.buildNum
+    }
+}
+
+def gitSha() {
+    return 'git rev-parse HEAD'.execute().text.trim()
+}
+
+if (project.hasProperty("local_maven")) {
+	apply plugin: 'maven'
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    repository(url: "file://${local_maven}")
+            }
+        }
+    }
+}
+if (project.hasProperty("remote_maven") && project.hasProperty("sftp_pass")) {
+        apply plugin: 'maven'
+        uploadArchives {
+            repositories.mavenDeployer {
+                configuration = configurations.deployerJars
+                repository(url: "sftp://${remote_maven}") {
+                    authentication(userName: "${ftp_username}", password: "${sftp_pass}")
+                }
+            }
+        }
+    }
