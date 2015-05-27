@@ -1,11 +1,11 @@
-FTB Launcher
+FTB JSON Library
 ====
 
 Note: some classes used in this project come from the community, and as such are under other open source licenses.
 please see the links in the headers of those java files for more information about the source & the open source license used.
 FTB's code uses the following license:
 ##The license
-Copyright 2012-2014 FTB Launcher Contributors
+Copyright 2012-2014 FTB JSONLibrary Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ limitations under the License.
 * Download the source from this repo, either with git or as a zip/tarball.
 * Install Eclipse or IDEA
 * you will need project lombok integration installed see http://projectlombok.org/download.html for more info on its IDE integration. Gradle adds this to the classpath for you in the IDE for IDE building
-* To build a jar/exe using gradle run 'gradlew build' to generate the .exe version add 'launch4j' to the end after installing launch4j
+* To build a jar/exe using gradle run 'gradlew build' to generate the .jar
 * To generate IDE project with dependencies using gradle run 'gradlew eclipse' or 'gradlew idea' after running a build.
 
 * With Eclipse/idea, import generated project/module and build as usual.
@@ -41,7 +41,7 @@ limitations under the License.
 Before submitting a pull request, you should ensure that your fork is up to date.
 To do this, run these commands:
 
-    git remote add upstream git://github.com/Slowpoke101/FTBLaunch.git
+    git remote add upstream git://github.com/FeedTheBeast/FTBJsonLib.git
     git pull --rebase upstream master
     git push --force origin <branch_name>
 

@@ -22,7 +22,6 @@ import java.util.Date;
  */
 public class JsonLib {
     private static Gson GSON;
-
     static {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(new EnumAdaptorFactory());
