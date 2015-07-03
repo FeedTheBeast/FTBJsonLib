@@ -3,6 +3,7 @@ package net.ftb.jsonlib;
 import com.google.common.base.Optional;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Getter;
 import net.ftb.jsonlib.adapters.DateAdapter;
 import net.ftb.jsonlib.adapters.EnumAdaptorFactory;
 import net.ftb.jsonlib.adapters.FileAdapter;
@@ -13,6 +14,7 @@ import net.ftb.jsonlib.adapters.TPAdapter;
 import net.ftb.jsonlib.lists.Maps;
 import net.ftb.jsonlib.lists.Packs;
 import net.ftb.jsonlib.lists.TPs;
+import net.ftb.jsonlib.service.DownloadService;
 
 import java.io.File;
 import java.util.Date;
@@ -21,7 +23,11 @@ import java.util.Date;
  * Created by progwml6 on 5/26/15.
  */
 public class JsonLib {
+
+    @Getter
     private static Gson GSON;
+
+
     static {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapterFactory(new EnumAdaptorFactory());
@@ -36,7 +42,4 @@ public class JsonLib {
         GSON = builder.create();
     }
 
-    public static Gson getGSON () {
-        return GSON;
-    }
 }
