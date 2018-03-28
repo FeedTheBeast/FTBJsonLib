@@ -12,7 +12,7 @@ import java.net.URL;
  */
 //TODO move this to use the repo once we start pushing pack jsons there
 public class DownloadService {
-    private static String APIJSON = "http://api.feed-the-beast.com/ss/api/JSON/";
+    private static String APIJSON = "https://api.feed-the-beast.com/ss/api/JSON/";
     private static String APIPACK = "pack/";
     private static String APITP = "tp/";
     private static String APIMAP = "map/";
